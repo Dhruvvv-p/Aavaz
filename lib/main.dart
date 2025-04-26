@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:aavaz/presentation/screen/read_write_nfc_screen.dart';
+import 'package:aavaz/presentation/widgets/bottom_navigation.dart';
 
 void main() {
   runApp(const MyApp());
@@ -23,7 +23,7 @@ class MyApp extends StatelessWidget {
         ),
       ),
       debugShowCheckedModeBanner: false,
-      home: const ReadWriteNFCScreen(),
+      home: const BottomNavigationScreen(),
     );
   }
 }
