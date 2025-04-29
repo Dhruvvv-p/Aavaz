@@ -1,41 +1,41 @@
+import 'package:aavaz/core/notifier/nfc_notifier.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:aavaz/core/notifier/nfc_notifier.dart';
-import 'package:aavaz/presentation/widgets/dialogs.dart';
 
 class ReadNFCScreen extends StatelessWidget {
   const ReadNFCScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return ChangeNotifierProvider(
-      create: (context) => NFCNotifier()..announceWelcome(),
-      child: Scaffold(
-        backgroundColor: Colors.black,
-        appBar: AppBar(
-          title: const Text("Read NFC Tag"),
-          backgroundColor: Colors.deepPurple,
-        ),
-        body: Consumer<NFCNotifier>(
-          builder: (context, provider, _) {
-            if (provider.message.isNotEmpty && !provider.isProcessing) {
-              WidgetsBinding.instance.addPostFrameCallback((_) {
-                Navigator.of(context).popUntil((route) => route.isFirst);
-                showResultDialog(context, provider.message);
-              });
-            }
+    final nfcNotifier = Provider.of<NFCNotifier>(context);
 
-            return Center(
-              child: ElevatedButton(
-                onPressed: () {
-                  scanningDialog(context); // ✅ Show scanning dialog
-                  Provider.of<NFCNotifier>(context, listen: false)
-                      .startNFCOperation(nfcOperation: NFCOperation.read);
-                },
-                child: const Text("Scan to Read"),
-              ),
-            );
-          },
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text('Read NFC'),
+      ),
+      body: Center(
+        child: nfcNotifier.isProcessing
+            ? const CircularProgressIndicator()
+            : Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            ElevatedButton.icon(
+              icon: const Icon(Icons.wifi_tethering),
+              label: const Text('Start Reading NFC'),
+              onPressed: () {
+                nfcNotifier.startNFCOperation(
+                  context: context,
+                  nfcOperation: NFCOperation.read,
+                );
+              },
+            ),
+            const SizedBox(height: 20),
+            Text(
+              nfcNotifier.message,
+              textAlign: TextAlign.center,
+              style: const TextStyle(fontSize: 18),
+            ),
+          ],
         ),
       ),
     );

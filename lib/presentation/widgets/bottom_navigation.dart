@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:aavaz/presentation/screen/read_nfc_screen.dart';
 import 'package:aavaz/presentation/screen/write_nfc_screen.dart';
+import 'package:aavaz/presentation/screen/history_screen.dart';
 
 class BottomNavigationScreen extends StatefulWidget {
   const BottomNavigationScreen({super.key});
@@ -15,6 +16,7 @@ class _BottomNavigationScreenState extends State<BottomNavigationScreen> {
   final List<Widget> _screens = [
     const ReadNFCScreen(),
     const WriteNFCScreen(),
+    const HistoryScreen(),
   ];
 
   void _onTap(int index) {
@@ -39,6 +41,10 @@ class _BottomNavigationScreenState extends State<BottomNavigationScreen> {
           BottomNavigationBarItem(
             icon: Icon(Icons.edit_note), // Write icon
             label: 'Write',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.history), // History icon
+            label: 'History',
           ),
         ],
       ),

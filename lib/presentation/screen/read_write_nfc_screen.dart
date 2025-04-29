@@ -56,7 +56,7 @@ class ReadWriteNFCScreen extends StatelessWidget {
                           Provider.of<NFCNotifier>(context, listen: false)
                               .startNFCOperation(
                             nfcOperation: NFCOperation.write,
-                            data: "Hello from Aavaz App!",
+                            //data: "Hello from Aavaz App!",
                           );
                         },
                         child: const Text("Write NFC Tag"),

@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:aavaz/core/notifier/nfc_notifier.dart';
+import 'package:aavaz/core/notifier/history_notifier.dart';
 import 'package:aavaz/presentation/widgets/bottom_navigation.dart';
 
 void main() {
@@ -10,20 +13,29 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Aavaz NFC',
-      theme: ThemeData.dark().copyWith(
-        scaffoldBackgroundColor: Colors.black,
-        elevatedButtonTheme: ElevatedButtonThemeData(
-          style: ElevatedButton.styleFrom(
-            backgroundColor: Colors.deepPurple,
-            foregroundColor: Colors.white,
-            textStyle: const TextStyle(fontSize: 18),
+    return MultiProvider(
+      providers: [
+        ChangeNotifierProvider(create: (_) => NFCNotifier()),
+        ChangeNotifierProvider(create: (_) => HistoryNotifier()),
+      ],
+      child: MaterialApp(
+        title: 'Aavaz NFC App',
+        theme: ThemeData(
+          brightness: Brightness.dark,
+          primarySwatch: Colors.deepPurple,
+          scaffoldBackgroundColor: Colors.black,
+          appBarTheme: const AppBarTheme(
+            backgroundColor: Colors.black,
+          ),
+          bottomNavigationBarTheme: const BottomNavigationBarThemeData(
+            backgroundColor: Colors.black,
+            selectedItemColor: Colors.deepPurpleAccent,
+            unselectedItemColor: Colors.grey,
           ),
         ),
+        debugShowCheckedModeBanner: false,
+        home: const BottomNavigationScreen(),
       ),
-      debugShowCheckedModeBanner: false,
-      home: const BottomNavigationScreen(),
     );
   }
 }
