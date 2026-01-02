@@ -34,13 +34,12 @@ class WriteNFCScreen extends StatelessWidget {
                 icon: const Icon(Icons.edit_note),
                 label: const Text('Write to NFC'),
                 onPressed: () {
-                  if (controller.text.trim().isNotEmpty) {
-                    nfcNotifier
-                      ..updateWriteContent(controller.text.trim())
-                      ..startNFCOperation(
-                        context: context,
-                        nfcOperation: NFCOperation.write,
-                      );
+                  final text = controller.text.trim();
+                  if (text.isNotEmpty) {
+                    nfcNotifier.updateWriteContent(text);
+                    nfcNotifier.startNFCOperation(
+                      nfcOperation: NFCOperation.write,
+                    );
                   }
                 },
               ),
